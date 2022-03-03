@@ -9,6 +9,7 @@ class Viloyat(models.Model):
     def __str__(self):
         return self.name
 
+
 class Tuman(models.Model):
     name = models.CharField(max_length=255)
     viloyat = models.ForeignKey(Viloyat, on_delete=models.CASCADE)
@@ -16,12 +17,14 @@ class Tuman(models.Model):
     def __str__(self):
         return self.name
 
+
 class Mahalla(models.Model):
     name = models.CharField(max_length=255)
     tuman = models.ForeignKey(Tuman, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
@@ -43,6 +46,7 @@ class Yetakchi(models.Model):
     def __str__(self):
         return self.name
 
+
 class User(models.Model):
     CHOICES = (
         (0, "game"),
@@ -63,4 +67,6 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
-
+class RTM(models.Model):
+    name = models.CharField(max_length=255)
+    chat_id = models.IntegerField(default=0)

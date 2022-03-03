@@ -19,6 +19,26 @@ def get_viloyatlar(request):
         }
     return Response(data)
 
+@api_view(["GET"])
+def get_rtm(request):
+    try:
+        query = RTM.objects.last()
+        if query is not None:
+            chat_id = query.chat_id
+        else:
+            chat_id = None
+        data = {
+            "success": True,
+            "data": {
+                "chat_id":chat_id
+            }
+        }
+    except Exception as err:
+        data = {
+            "success": False,
+            "error": f"{err}"
+        }
+    return Response(data)
 
 @api_view(["GET"])
 def get_tumanlar(request):
@@ -36,7 +56,6 @@ def get_tumanlar(request):
             "error": f"{err}"
         }
     return Response(data)
-
 
 
 @api_view(["GET"])
@@ -77,6 +96,7 @@ def get_games(request, pk=None):
         }
     return Response(data)
 
+
 @api_view(["GET"])
 def get_yetakchi(request, pk=None):
     try:
@@ -90,7 +110,7 @@ def get_yetakchi(request, pk=None):
         data = {
             "success": True,
             "data": {
-                "chat_id":chat_id
+                "chat_id": chat_id
             }
         }
     except Exception as err:
@@ -99,6 +119,7 @@ def get_yetakchi(request, pk=None):
             "error": f"{err}"
         }
     return Response(data)
+
 
 @api_view(["POST"])
 def register(request, chat_id):
@@ -138,7 +159,6 @@ def register(request, chat_id):
 
         ser = UserSerializer(user)
 
-
         data = {
             "success": True,
             "data": ser.data
@@ -149,6 +169,7 @@ def register(request, chat_id):
             "error": f"{err}"
         }
     return Response(data)
+
 
 @api_view(["GET"])
 def get_user(request, chat_id=None):
